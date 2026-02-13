@@ -4,8 +4,8 @@ namespace MdToPdfConverter.Services;
 
 public class ContextMenuService : IContextMenuService
 {
-    private const string ShellKeyPath = @"Software\Classes\.md\shell\ConvertToPdf";
-    private const string CommandKeyPath = @"Software\Classes\.md\shell\ConvertToPdf\command";
+    private const string ShellKeyPath = @"Software\Classes\SystemFileAssociations\.md\shell\ConvertToPdf";
+    private const string CommandKeyPath = @"Software\Classes\SystemFileAssociations\.md\shell\ConvertToPdf\command";
 
     public void Register(string exePath)
     {
