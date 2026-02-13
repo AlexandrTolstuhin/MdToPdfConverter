@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MdToPdfConverter.ViewModels"
+        x:Class="MdToPdfConverter.Views.ChromiumDownloadWindow"
+        x:DataType="vm:ChromiumDownloadViewModel"
+        Title="MdToPdfConverter - First-time Setup"
+        SizeToContent="Height"
+        Width="420"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen">
+
+    <StackPanel Margin="24" Spacing="12">
+
+        <TextBlock Text="First-time setup"
+                   FontWeight="SemiBold"
+                   FontSize="16" />
+
+        <TextBlock Text="Downloading browser engine required for PDF generation. This may take a few minutes."
+                   TextWrapping="Wrap" />
+
+        <ProgressBar IsIndeterminate="{Binding IsDownloading}"
+                     Value="{Binding ProgressPercent}"
+                     Maximum="100"
+                     Height="20" />
+
+        <TextBlock Text="{Binding StatusText}"
+                   Foreground="{DynamicResource SystemBaseMediumColor}" />
+
+    </StackPanel>
+</Window>

@@ -1,0 +1,50 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MdToPdfConverter.ViewModels"
+        x:Class="MdToPdfConverter.Views.SettingsWindow"
+        x:DataType="vm:SettingsWindowViewModel"
+        Title="MdToPdfConverter - Settings"
+        SizeToContent="WidthAndHeight"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen"
+        MinWidth="400">
+
+    <StackPanel Margin="24" Spacing="16">
+
+        <TextBlock Text="PDF Font Size" FontWeight="SemiBold" />
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Right"
+                       Text="{Binding FontSize}"
+                       VerticalAlignment="Center"
+                       MinWidth="30"
+                       Margin="8,0,0,0" />
+            <Slider Minimum="8" Maximum="24"
+                    Value="{Binding FontSize}"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True" />
+        </DockPanel>
+
+        <Separator />
+
+        <ToggleSwitch Content="Add to Explorer context menu"
+                      IsChecked="{Binding IsContextMenuRegistered}" />
+
+        <ToggleSwitch Content="Start with Windows"
+                      IsChecked="{Binding IsAutoStartEnabled}" />
+
+        <Separator />
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="8">
+            <Button Content="Save"
+                    Command="{Binding SaveCommand}"
+                    Classes="accent"
+                    MinWidth="80" />
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    MinWidth="80" />
+        </StackPanel>
+
+    </StackPanel>
+</Window>
