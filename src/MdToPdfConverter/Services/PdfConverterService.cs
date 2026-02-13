@@ -6,16 +6,24 @@ namespace MdToPdfConverter.Services;
 
 public class PdfConverterService : IPdfConverterService
 {
-    public async Task<ConversionResult> ConvertAsync(string mdFilePath, int fontSize)
+    public async Task<ConversionResult> ConvertAsync(string mdFilePath, int fontSize, int marginMm)
     {
         try
         {
             var outputPath = Path.ChangeExtension(mdFilePath, ".pdf");
+            var margin = $"{marginMm}mm";
 
             var options = new Markdown2PdfOptions
             {
                 Theme = Theme.Github,
-                CustomHeadContent = $"<style>body {{ font-size: {fontSize}px; }}</style>"
+                CustomHeadContent = $"<style>body {{ font-size: {fontSize}px; }}</style>",
+                MarginOptions = new MarginOptions
+                {
+                    Top = margin,
+                    Bottom = margin,
+                    Left = margin,
+                    Right = margin
+                }
             };
 
             var converter = new Markdown2PdfConverter(options);

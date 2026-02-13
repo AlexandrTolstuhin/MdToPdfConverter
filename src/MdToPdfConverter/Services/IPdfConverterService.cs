@@ -4,5 +4,5 @@ namespace MdToPdfConverter.Services;
 
 public interface IPdfConverterService
 {
-    Task<ConversionResult> ConvertAsync(string mdFilePath, int fontSize);
+    Task<ConversionResult> ConvertAsync(string mdFilePath, int fontSize, int marginMm);
 }

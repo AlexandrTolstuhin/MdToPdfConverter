@@ -24,6 +24,19 @@
                     IsSnapToTickEnabled="True" />
         </DockPanel>
 
+        <TextBlock Text="Page Margin (mm)" FontWeight="SemiBold" />
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Right"
+                       Text="{Binding MarginMm}"
+                       VerticalAlignment="Center"
+                       MinWidth="30"
+                       Margin="8,0,0,0" />
+            <Slider Minimum="0" Maximum="40"
+                    Value="{Binding MarginMm}"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True" />
+        </DockPanel>
+
         <Separator />
 
         <ToggleSwitch Content="Add to Explorer context menu"

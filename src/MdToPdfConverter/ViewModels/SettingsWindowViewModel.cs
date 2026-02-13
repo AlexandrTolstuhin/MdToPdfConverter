@@ -12,6 +12,7 @@ public class SettingsWindowViewModel : ViewModelBase
     private readonly IAutoStartService _autoStartService;
 
     private int _fontSize;
+    private int _marginMm;
     private bool _isContextMenuRegistered;
     private bool _isAutoStartEnabled;
 
@@ -26,6 +27,7 @@ public class SettingsWindowViewModel : ViewModelBase
 
         var settings = settingsService.Current;
         _fontSize = settings.PdfFontSize;
+        _marginMm = settings.PdfMarginMm;
         _isContextMenuRegistered = contextMenuService.IsRegistered();
         _isAutoStartEnabled = autoStartService.IsEnabled();
 
@@ -37,6 +39,12 @@ public class SettingsWindowViewModel : ViewModelBase
     {
         get => _fontSize;
         set => this.RaiseAndSetIfChanged(ref _fontSize, value);
+    }
+
+    public int MarginMm
+    {
+        get => _marginMm;
+        set => this.RaiseAndSetIfChanged(ref _marginMm, value);
     }
 
     public bool IsContextMenuRegistered
@@ -73,6 +81,7 @@ public class SettingsWindowViewModel : ViewModelBase
         var settings = new AppSettings
         {
             PdfFontSize = FontSize,
+            PdfMarginMm = MarginMm,
             IsContextMenuRegistered = IsContextMenuRegistered,
             IsAutoStartEnabled = IsAutoStartEnabled
         };
