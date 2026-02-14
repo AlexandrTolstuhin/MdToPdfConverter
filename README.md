@@ -19,9 +19,10 @@ Simple Windows application to convert Markdown files to PDF with custom formatti
 
 ## Installation
 
-1. Download the latest release
-2. Run the installer
-3. Right-click any .md file → "Convert to PDF"
+1. Clone the repository
+2. Build the project: `dotnet build`
+3. Run: `dotnet run --project src/MdToPdfConverter`
+4. Enable context menu in settings
 
 ## Settings
 
