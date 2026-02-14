@@ -107,7 +107,7 @@ public partial class App : Application
             window.Close();
         }
 
-        var result = await _pdfConverterService.ConvertAsync(mdFilePath, settings.PdfFontSize, settings.PdfMarginMm);
+        var result = await _pdfConverterService.ConvertAsync(mdFilePath, settings.PdfFontSize, settings.PdfMarginMm, settings.PaperFormat);
 
         if (result.Success)
             ShowNotification("Conversion Complete", $"PDF saved: {Path.GetFileName(result.OutputPath)}");

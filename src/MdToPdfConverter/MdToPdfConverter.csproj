@@ -19,6 +19,6 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.*" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.*" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.*" />
-    <PackageReference Include="Markdown2Pdf" Version="2.*" />
+    <PackageReference Include="Markdown2Pdf" Version="2.2.3" />
   </ItemGroup>
 </Project>

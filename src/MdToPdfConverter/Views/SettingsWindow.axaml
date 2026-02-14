@@ -37,6 +37,11 @@
                     IsSnapToTickEnabled="True" />
         </DockPanel>
 
+        <TextBlock Text="Paper Format" FontWeight="SemiBold" />
+        <ComboBox ItemsSource="{Binding PaperFormats}"
+                  SelectedItem="{Binding SelectedPaperFormat}"
+                  HorizontalAlignment="Stretch" />
+
         <Separator />
 
         <ToggleSwitch Content="Add to Explorer context menu"

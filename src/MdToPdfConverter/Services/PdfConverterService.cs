@@ -1,12 +1,32 @@
 using Markdown2Pdf;
 using Markdown2Pdf.Options;
 using MdToPdfConverter.Models;
+using PuppeteerSharp.Media;
 
 namespace MdToPdfConverter.Services;
 
 public class PdfConverterService : IPdfConverterService
 {
-    public async Task<ConversionResult> ConvertAsync(string mdFilePath, int fontSize, int marginMm)
+    private static PaperFormat ParsePaperFormat(string format)
+    {
+        return format switch
+        {
+            "Letter" => PaperFormat.Letter,
+            "Legal" => PaperFormat.Legal,
+            "Tabloid" => PaperFormat.Tabloid,
+            "Ledger" => PaperFormat.Ledger,
+            "A0" => PaperFormat.A0,
+            "A1" => PaperFormat.A1,
+            "A2" => PaperFormat.A2,
+            "A3" => PaperFormat.A3,
+            "A4" => PaperFormat.A4,
+            "A5" => PaperFormat.A5,
+            "A6" => PaperFormat.A6,
+            _ => PaperFormat.A4
+        };
+    }
+
+    public async Task<ConversionResult> ConvertAsync(string mdFilePath, int fontSize, int marginMm, string paperFormat)
     {
         try
         {
@@ -16,6 +36,7 @@ public class PdfConverterService : IPdfConverterService
             var options = new Markdown2PdfOptions
             {
                 Theme = Theme.Github,
+                Format = ParsePaperFormat(paperFormat),
                 CustomHeadContent = $@"<style>
                     body, p, li, td, th, div, span {{ font-size: {fontSize}px !important; }}
                     h1 {{ font-size: {fontSize * 2}px !important; }}
@@ -26,7 +47,7 @@ public class PdfConverterService : IPdfConverterService
                     h6 {{ font-size: {fontSize}px !important; }}
                     code {{ font-size: {fontSize * 0.9}px !important; }}
                 </style>",
-                MarginOptions = new MarginOptions
+                MarginOptions = new Markdown2Pdf.Options.MarginOptions
                 {
                     Top = margin,
                     Bottom = margin,

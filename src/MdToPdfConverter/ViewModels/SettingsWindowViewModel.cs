@@ -13,6 +13,7 @@ public class SettingsWindowViewModel : ViewModelBase
 
     private int _fontSize;
     private int _marginMm;
+    private string _selectedPaperFormat;
     private bool _isContextMenuRegistered;
     private bool _isAutoStartEnabled;
 
@@ -28,6 +29,7 @@ public class SettingsWindowViewModel : ViewModelBase
         var settings = settingsService.Current;
         _fontSize = settings.PdfFontSize;
         _marginMm = settings.PdfMarginMm;
+        _selectedPaperFormat = settings.PaperFormat;
         _isContextMenuRegistered = contextMenuService.IsRegistered();
         _isAutoStartEnabled = autoStartService.IsEnabled();
 
@@ -46,6 +48,21 @@ public class SettingsWindowViewModel : ViewModelBase
         get => _marginMm;
         set => this.RaiseAndSetIfChanged(ref _marginMm, value);
     }
+
+    public string SelectedPaperFormat
+    {
+        get => _selectedPaperFormat;
+        set => this.RaiseAndSetIfChanged(ref _selectedPaperFormat, value);
+    }
+
+    public List<string> PaperFormats { get; } = new()
+    {
+        "A4",
+        "A3",
+        "A5",
+        "Letter",
+        "Legal"
+    };
 
     public bool IsContextMenuRegistered
     {
@@ -82,6 +99,7 @@ public class SettingsWindowViewModel : ViewModelBase
         {
             PdfFontSize = FontSize,
             PdfMarginMm = MarginMm,
+            PaperFormat = SelectedPaperFormat,
             IsContextMenuRegistered = IsContextMenuRegistered,
             IsAutoStartEnabled = IsAutoStartEnabled
         };
