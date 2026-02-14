@@ -1,5 +1,9 @@
 # MdToPdfConverter
 
+<p align="center">
+  <img src="app-icon.png" alt="MdToPdfConverter Icon" width="128" height="128">
+</p>
+
 Simple Windows application to convert Markdown files to PDF with custom formatting options.
 
 ## Features
