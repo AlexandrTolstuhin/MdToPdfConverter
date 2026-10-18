@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using MdToPdfConverter.Services;
@@ -120,18 +121,43 @@ public partial class App : Application
         var window = new Window
         {
             Title = title,
-            Width = 350,
-            Height = 100,
+            Width = 380,
+            Height = 108,
             CanResize = false,
             WindowStartupLocation = WindowStartupLocation.Manual,
-            SystemDecorations = SystemDecorations.BorderOnly,
+            SystemDecorations = SystemDecorations.None,
+            TransparencyLevelHint = [WindowTransparencyLevel.Transparent],
+            Background = Brushes.Transparent,
             ShowInTaskbar = false,
             Topmost = true,
-            Content = new TextBlock
+            Content = new Border
             {
-                Text = $"{title}\n{message}",
-                Margin = new Avalonia.Thickness(16),
-                TextWrapping = Avalonia.Media.TextWrapping.Wrap
+                Background = Brush.Parse("#F51B1B1B"),
+                BorderBrush = Brush.Parse("#343434"),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(14),
+                Padding = new Thickness(16),
+                Child = new StackPanel
+                {
+                    Spacing = 4,
+                    Children =
+                    {
+                        new TextBlock
+                        {
+                            Text = title,
+                            Foreground = Brush.Parse("#F1F1F1"),
+                            FontSize = 14,
+                            FontWeight = FontWeight.SemiBold
+                        },
+                        new TextBlock
+                        {
+                            Text = message,
+                            Foreground = Brush.Parse("#9A9A9A"),
+                            FontSize = 12,
+                            TextWrapping = TextWrapping.Wrap
+                        }
+                    }
+                }
             }
         };
 
@@ -140,8 +166,8 @@ public partial class App : Application
         {
             var workArea = screen.WorkingArea;
             window.Position = new Avalonia.PixelPoint(
-                (int)(workArea.Right / screen.Scaling - 360),
-                (int)(workArea.Bottom / screen.Scaling - 110));
+                (int)(workArea.Right / screen.Scaling - 390),
+                (int)(workArea.Bottom / screen.Scaling - 118));
         }
 
         window.Show();

@@ -3,28 +3,72 @@
         xmlns:vm="using:MdToPdfConverter.ViewModels"
         x:Class="MdToPdfConverter.Views.ChromiumDownloadWindow"
         x:DataType="vm:ChromiumDownloadViewModel"
-        Title="MdToPdfConverter - First-time Setup"
+        Title="MD to PDF Setup"
         SizeToContent="Height"
         Width="420"
         CanResize="False"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        SystemDecorations="None"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent">
 
-    <StackPanel Margin="24" Spacing="12">
+    <Border Padding="18"
+            Background="#F51B1B1B"
+            BorderBrush="#343434"
+            BorderThickness="1"
+            CornerRadius="18">
+        <Grid RowDefinitions="Auto,Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-        <TextBlock Text="First-time setup"
-                   FontWeight="SemiBold"
-                   FontSize="16" />
+                <Grid Grid.ColumnSpan="2"
+                      ColumnDefinitions="Auto,*"
+                      Background="Transparent"
+                      PointerPressed="Header_PointerPressed">
+                    <Border Width="32" Height="32" Background="#2A2A2A" CornerRadius="9">
+                        <Image Width="24"
+                               Height="24"
+                               Source="avares://MdToPdfConverter/Assets/app-icon.png"
+                               Stretch="Uniform" />
+                    </Border>
 
-        <TextBlock Text="Downloading browser engine required for PDF generation. This may take a few minutes."
-                   TextWrapping="Wrap" />
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Classes="title" Text="First-time setup" />
+                        <TextBlock Classes="subtitle" Margin="0,2,0,0" Text="Preparing the PDF engine" />
+                    </StackPanel>
+                </Grid>
 
-        <ProgressBar IsIndeterminate="{Binding IsDownloading}"
-                     Value="{Binding ProgressPercent}"
-                     Maximum="100"
-                     Height="20" />
+                <Button Grid.Column="2"
+                        Classes="close"
+                        AutomationProperties.Name="Close"
+                        Click="CloseButton_Click">
+                    <Path Width="12"
+                          Height="12"
+                          Data="M 0,0 L 12,12 M 12,0 L 0,12"
+                          Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                          StrokeThickness="1.5" />
+                </Button>
+            </Grid>
 
-        <TextBlock Text="{Binding StatusText}"
-                   Foreground="{DynamicResource SystemBaseMediumColor}" />
+            <Border Grid.Row="1" Classes="card" Margin="0,16,0,0">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Downloading the browser engine required for PDF generation. This may take a few minutes."
+                               Foreground="#C8C8C8"
+                               TextWrapping="Wrap" />
 
-    </StackPanel>
+                    <ProgressBar IsIndeterminate="{Binding IsDownloading}"
+                                 Value="{Binding ProgressPercent}"
+                                 Maximum="100" />
+
+                    <TextBlock Classes="subtitle"
+                               Text="{Binding StatusText}"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

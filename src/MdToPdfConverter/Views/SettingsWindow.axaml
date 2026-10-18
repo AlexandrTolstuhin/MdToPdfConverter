@@ -3,66 +3,133 @@
         xmlns:vm="using:MdToPdfConverter.ViewModels"
         x:Class="MdToPdfConverter.Views.SettingsWindow"
         x:DataType="vm:SettingsWindowViewModel"
-        Title="MdToPdfConverter - Settings"
-        SizeToContent="WidthAndHeight"
+        Title="MD to PDF Settings"
+        Width="430"
+        SizeToContent="Height"
         CanResize="False"
         WindowStartupLocation="CenterScreen"
-        MinWidth="400">
+        SystemDecorations="None"
+        TransparencyLevelHint="Transparent"
+        Background="Transparent">
 
-    <StackPanel Margin="24" Spacing="16">
+    <Border Padding="18"
+            Background="#F51B1B1B"
+            BorderBrush="#343434"
+            BorderThickness="1"
+            CornerRadius="18">
+        <Grid RowDefinitions="Auto,Auto,Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-        <TextBlock Text="PDF Font Size" FontWeight="SemiBold" />
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Right"
-                       Text="{Binding FontSize}"
-                       VerticalAlignment="Center"
-                       MinWidth="30"
-                       Margin="8,0,0,0" />
-            <Slider Minimum="8" Maximum="24"
-                    Value="{Binding FontSize}"
-                    TickFrequency="1"
-                    IsSnapToTickEnabled="True" />
-        </DockPanel>
+                <Grid Grid.ColumnSpan="2"
+                      ColumnDefinitions="Auto,*"
+                      Background="Transparent"
+                      PointerPressed="Header_PointerPressed">
+                    <Border Width="32" Height="32" Background="#2A2A2A" CornerRadius="9">
+                        <Image Width="24"
+                               Height="24"
+                               Source="avares://MdToPdfConverter/Assets/app-icon.png"
+                               Stretch="Uniform" />
+                    </Border>
 
-        <TextBlock Text="Page Margin (mm)" FontWeight="SemiBold" />
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Right"
-                       Text="{Binding MarginMm}"
-                       VerticalAlignment="Center"
-                       MinWidth="30"
-                       Margin="8,0,0,0" />
-            <Slider Minimum="0" Maximum="40"
-                    Value="{Binding MarginMm}"
-                    TickFrequency="1"
-                    IsSnapToTickEnabled="True" />
-        </DockPanel>
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Classes="title" Text="MD to PDF" />
+                        <TextBlock Classes="subtitle" Margin="0,2,0,0" Text="Conversion settings" />
+                    </StackPanel>
+                </Grid>
 
-        <TextBlock Text="Paper Format" FontWeight="SemiBold" />
-        <ComboBox ItemsSource="{Binding PaperFormats}"
-                  SelectedItem="{Binding SelectedPaperFormat}"
-                  HorizontalAlignment="Stretch" />
+                <Button Grid.Column="2"
+                        Classes="close"
+                        Command="{Binding CancelCommand}"
+                        AutomationProperties.Name="Close">
+                    <Path Width="12"
+                          Height="12"
+                          Data="M 0,0 L 12,12 M 12,0 L 0,12"
+                          Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                          StrokeThickness="1.5" />
+                </Button>
+            </Grid>
 
-        <Separator />
+            <StackPanel Grid.Row="1" Margin="0,16,0,0" Spacing="8">
+                <Border Classes="card">
+                    <StackPanel>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Classes="label" Text="PDF FONT SIZE" />
+                            <TextBlock Grid.Column="1"
+                                       Foreground="#A8A8A8"
+                                       FontSize="11"
+                                       Text="{Binding FontSize}" />
+                        </Grid>
+                        <Grid Margin="0,8,0,0">
+                            <Slider Minimum="8"
+                                    Maximum="24"
+                                    Value="{Binding FontSize}"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    VerticalAlignment="Center" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
 
-        <ToggleSwitch Content="Add to Explorer context menu"
-                      IsChecked="{Binding IsContextMenuRegistered}" />
+                <Border Classes="card">
+                    <StackPanel>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Classes="label" Text="PAGE MARGIN, MM" />
+                            <TextBlock Grid.Column="1"
+                                       Foreground="#A8A8A8"
+                                       FontSize="11"
+                                       Text="{Binding MarginMm}" />
+                        </Grid>
+                        <Grid Margin="0,8,0,0">
+                            <Slider Minimum="0"
+                                    Maximum="40"
+                                    Value="{Binding MarginMm}"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    VerticalAlignment="Center" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
 
-        <ToggleSwitch Content="Start with Windows"
-                      IsChecked="{Binding IsAutoStartEnabled}" />
+                <Border Classes="card">
+                    <StackPanel>
+                        <TextBlock Classes="label" Text="PAPER FORMAT" />
+                        <ComboBox Margin="0,6,0,0"
+                                  ItemsSource="{Binding PaperFormats}"
+                                  SelectedItem="{Binding SelectedPaperFormat}"
+                                  HorizontalAlignment="Stretch"
+                                  AutomationProperties.Name="Paper format" />
+                    </StackPanel>
+                </Border>
 
-        <Separator />
+                <StackPanel Margin="2,4,0,0" Spacing="4">
+                    <CheckBox Classes="toggle"
+                              Content="Add to Explorer context menu"
+                              IsChecked="{Binding IsContextMenuRegistered}" />
+                    <CheckBox Classes="toggle"
+                              Content="Start with Windows"
+                              IsChecked="{Binding IsAutoStartEnabled}" />
+                </StackPanel>
+            </StackPanel>
 
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Spacing="8">
-            <Button Content="Save"
-                    Command="{Binding SaveCommand}"
-                    Classes="accent"
-                    MinWidth="80" />
-            <Button Content="Cancel"
-                    Command="{Binding CancelCommand}"
-                    MinWidth="80" />
-        </StackPanel>
-
-    </StackPanel>
+            <StackPanel Grid.Row="2"
+                        Margin="0,14,0,0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="8">
+                <Button Classes="ghost"
+                        MinWidth="84"
+                        Content="Cancel"
+                        Command="{Binding CancelCommand}" />
+                <Button Classes="primary"
+                        MinWidth="96"
+                        Content="Save"
+                        Command="{Binding SaveCommand}" />
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>
